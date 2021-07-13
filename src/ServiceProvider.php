@@ -42,7 +42,7 @@ class ServiceProvider extends SupportServiceProvider
 
         // config
         $this->publishes([
-            __DIR__ . '/src/Config/smart-hash.php' => config_path('smart-hash.php'),
+            __DIR__ . '/Config/smart-hash.php' => config_path('smart-hash.php'),
         ]);
     }
 }
