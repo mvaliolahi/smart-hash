@@ -1,5 +1,6 @@
 # Laravel Eloquent Models Smart-HashIDs
 
+
 ### What is the hashids? 
 
 > Hashids is a small open-source library that generates short, unique, non-sequential ids from numbers.
@@ -8,11 +9,13 @@
 For more information visit [hashids.org](https://hashids.org/).
 
 # Why we should use this library?
+Your client deals with hash id, but each time your app received `id` or `ids` in the request SmartHash will decode it for you.
 
 - Easy to use!
-- Hidden our database ids from client.
+- Hidden your database ids from client.
 - Automatic encode model id for front-end and decode for back-end (Decode all `id` or `ids` requests from parameters or the body)
 - Does not need to methods like `findByHashid`
+
 
 # Installation
 
@@ -31,9 +34,7 @@ class Category extends Model
 }
 ```
 
-    Note: You can access to original id using the $category->id() method.
-
-After use SmartHash Trait, Category::first()->id will return `jR` not `1`
+After use SmartHash Trait, Category::first()->id will return `jR` not `1`, You can access to original id using the $category->id() method.
 
 2. Inside you boot method in AppServiceProvider define your models because of `route model binding`: 
 
@@ -45,11 +46,6 @@ $this->app->singleton('smart-hash', function() {
     ];
 });
 ```
-
-## What happens if the client send us  hash id or ids parameter?
-
-Your client deals with hash id, but each time your app received `id` or `ids` in the request SmartHash will decode it for you.
-
 
 ## road-map:
 
