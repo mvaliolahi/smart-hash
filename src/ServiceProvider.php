@@ -39,5 +39,10 @@ class ServiceProvider extends SupportServiceProvider
                 return $model::find((new Hashids())->decode($value)[0]);
             });
         });
+
+        // config
+        $this->publishes([
+            __DIR__ . '/src/Config/smart-hash.php' => config_path('smart-hash.php'),
+        ]);
     }
 }

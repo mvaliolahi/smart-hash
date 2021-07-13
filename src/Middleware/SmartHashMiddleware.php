@@ -21,27 +21,30 @@ class SmartHashMiddleware
     public function handle(Request $request, Closure $next, ...$guards)
     {
         try {
-            // Decode id
-            if ($request->filled('id')) {
-                $request->merge([
-                    'id' => (new Hashids())->decode($request->id)[0],
-                ]);
-            }
+            // Decode single parameters.
+            collect(config('smart-hash.single_parameters'))->each(function ($parameter) use ($request) {
+                if ($request->filled($parameter)) {
+                    $request->merge([
+                        $parameter => (new Hashids())->decode($request->$parameter)[0],
+                    ]);
+                }
+            });
 
-            // Decode Ids array
-            if ($request->filled('ids')) {
+            // Decode array parameters
+            collect(config('smart-hash.array_parameters'))->each(function ($parameter) use ($request) {
+                if ($request->filled($parameter)) {
 
-                $ids = collect($request->ids)->transform(function ($id) {
-                    return (new Hashids())->decode($id)[0];
-                });
+                    $decoded = collect($request->$parameter)->transform(function ($p) {
+                        return (new Hashids())->decode($p)[0];
+                    });
 
-                $request->merge([
-                    'ids' => $ids->toArray(),
-                ]);
-            }
-
+                    $request->merge([
+                        $parameter => $decoded->toArray(),
+                    ]);
+                }
+            });
         } catch (Throwable $exception) {
-            throw new Exception('Hash id is not valid.');
+            throw new Exception("Hash id is not valid ({$exception->getMessage()})");
         }
 
         return $next($request);

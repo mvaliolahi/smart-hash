@@ -20,7 +20,9 @@ Your client deals with hash id, but each time your app received `id` or `ids` in
 # Installation
 
 ```bash
-composer require mvaliolahi/smart-hash
+$ composer require mvaliolahi/smart-hash
+
+$ php artisan vendor:publish
 ```
 
 ## How to use
