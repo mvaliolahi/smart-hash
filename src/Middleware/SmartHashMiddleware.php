@@ -21,7 +21,6 @@ class SmartHashMiddleware
     public function handle(Request $request, Closure $next, ...$guards)
     {
         try {
-            
             // Decode id
             if ($request->filled('id')) {
                 $request->merge([

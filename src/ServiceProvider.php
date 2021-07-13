@@ -29,7 +29,9 @@ class ServiceProvider extends SupportServiceProvider
     public function boot()
     {
         // Register Middleware
-        app('router')->aliasMiddleware('smart-hash-middleware', SmartHashMiddleware::class);
+        /** @var \Illuminate\Routing\Router $router */
+        $router = $this->app['router'];
+        $router->pushMiddlewareToGroup('web', SmartHashMiddleware::class);
 
         // override route model binding.
         collect(app('smart-hash'))->each(function ($model, $alias) {
