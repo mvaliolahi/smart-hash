@@ -49,6 +49,25 @@ $this->app->singleton('smart-hash', function() {
 });
 ```
 
+
+## Add a new parameter to decoder lookup-table
+edit `config/smart-hash.php` file, next step is obvious!
+for example, if we want to auto decode parameters like `id`, `category_id` and array parameter like `ids`, config is like below.
+
+```php
+<?php
+
+return [
+    'single_parameters' => [
+        'id', 
+        'category_id'
+    ],
+    'array_parameters' => [
+        'ids',
+    ]
+];
+```
+
 ## road-map:
 
     Step 2 can be removed in the next version.
