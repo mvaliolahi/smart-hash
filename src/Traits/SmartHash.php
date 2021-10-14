@@ -3,14 +3,13 @@
 namespace Mvaliolahi\SmartHash\Traits;
 
 use Hashids\Hashids;
+use Mvaliolahi\SmartHash\SmartCacheConfig;
 
 trait SmartHash
 {
-    private static $enableHash = true;
-
     public function disableHash()
     {
-        $this->enableHash = false;
+        $this->config()->disable();
 
         return $this;
     }
@@ -22,12 +21,18 @@ trait SmartHash
 
     public function getIdAttribute($value): string
     {
-        if (!$this->enableHash) {
-            $this->enableHash = true;
+        if ($this->config()->isDisabled()) {
+            $this->config()->enable();
 
             return $value;
         }
 
         return (new Hashids())->encode($value);
+    }
+
+    private function config(): SmartCacheConfig
+    {
+        return app(SmartCacheConfig::class)
+            ->setKey(get_class($this));
     }
 }

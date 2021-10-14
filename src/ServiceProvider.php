@@ -19,6 +19,7 @@ class ServiceProvider extends SupportServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(SmartCacheConfig::class, SMartCacheConfig::class);
     }
 
     /**
