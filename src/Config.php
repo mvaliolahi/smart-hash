@@ -2,7 +2,7 @@
 
 namespace Mvaliolahi\SmartHash;
 
-class SmartCacheConfig
+class Config
 {
     protected $config = [];
     protected $key;

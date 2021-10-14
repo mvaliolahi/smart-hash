@@ -3,7 +3,7 @@
 namespace Mvaliolahi\SmartHash\Traits;
 
 use Hashids\Hashids;
-use Mvaliolahi\SmartHash\SmartCacheConfig;
+use Mvaliolahi\SmartHash\Config;
 
 trait SmartHash
 {
@@ -30,9 +30,9 @@ trait SmartHash
         return (new Hashids())->encode($value);
     }
 
-    private function config(): SmartCacheConfig
+    private function config(): Config
     {
-        return app(SmartCacheConfig::class)
+        return app(Config::class)
             ->setKey(get_class($this));
     }
 }
