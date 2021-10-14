@@ -30,7 +30,7 @@ class Config
 
     public function isDisabled()
     {
-        return $this->config[$this->key] == true;
+        return ($this->config[$this->key] ?? false) == true;
     }
 
     public function isEnable()
