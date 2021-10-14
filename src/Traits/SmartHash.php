@@ -6,7 +6,7 @@ use Hashids\Hashids;
 
 trait SmartHash
 {
-    private $enableHash = true;
+    private static $enableHash = true;
 
     public function disableHash()
     {
