@@ -6,11 +6,11 @@ use Hashids\Hashids;
 
 trait SmartHash
 {
-    public function __construct()
+    public function __construct(array $attributes = [])
     {
-        parent::__construct();
         $this->hidden[] = 'id';
         $this->appends[] = 'hash_id';
+        parent::__construct($attributes);
     }
 
     public function id(): int
