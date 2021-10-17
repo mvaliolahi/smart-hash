@@ -34,6 +34,8 @@ class Category extends Model
 {
     use SmartHash;
 }
+
+$category->hashId()
 ```
 
 After use SmartHash Trait, Category::first()->id will return `jR` not `1`, You can access to original id using the $category->id() method.
@@ -67,19 +69,3 @@ return [
     ]
 ];
 ```
-
-
-## Why Relationships not work?
-By calling $this->disableHash() method, before defining the relationship SmartHash will be disabled, and things work.
-
-```php
-public function posts(): HasMany
-{
-    return $this->disableHash()->hasMany(Post::class);
-}
-```
-
-## road-map:
-
-    - Step 2 can be removed in the next version.
-    - Remove $this->disableHash().

@@ -3,15 +3,14 @@
 namespace Mvaliolahi\SmartHash\Traits;
 
 use Hashids\Hashids;
-use Mvaliolahi\SmartHash\Config;
 
 trait SmartHash
 {
-    public function disableHash()
+    public function __construct()
     {
-        $this->config()->disable();
-
-        return $this;
+        parent::__construct();
+        $this->hidden[] = 'id';
+        $this->appends[] = 'hash_id';
     }
 
     public function id(): int
@@ -19,20 +18,13 @@ trait SmartHash
         return $this->getRawOriginal('id');
     }
 
-    public function getIdAttribute($value): string
+    public function hasId(): int
     {
-        if ($this->config()->isDisabled()) {
-            $this->config()->enable();
-
-            return $value;
-        }
-
-        return (new Hashids())->encode($value);
+        return (new Hashids())->encode($this->id);
     }
 
-    private function config(): Config
+    function getHashIdAttribute()
     {
-        return app(Config::class)
-            ->setKey(get_class($this));
+        return (new Hashids())->encode($this->id);
     }
 }
