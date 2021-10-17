@@ -8,9 +8,9 @@ trait SmartHash
 {
     public function __construct(array $attributes = [])
     {
+        parent::__construct($attributes);
         $this->hidden[] = 'id';
         $this->appends[] = 'hash_id';
-        parent::__construct($attributes);
     }
 
     public function id(): int
