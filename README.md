@@ -69,3 +69,9 @@ return [
     ]
 ];
 ```
+
+## Manual find
+
+```php
+$post = Post::findByHash('vm');
+```

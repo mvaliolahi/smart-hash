@@ -27,4 +27,11 @@ trait SmartHash
     {
         return (new Hashids())->encode($this->id);
     }
+
+    public static function findByHash($hashId) 
+    {
+        $id = (new Hashids())->decode($hashId)[0];
+
+        return static::find($id);
+    }
 }
