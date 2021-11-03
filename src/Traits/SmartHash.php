@@ -20,18 +20,35 @@ trait SmartHash
 
     public function hasId(): int
     {
-        return (new Hashids())->encode($this->id);
+        return $this->encodeHash($this->id);
     }
 
     function getHashIdAttribute()
     {
-        return (new Hashids())->encode($this->id);
+        return $this->encodeHash($this->id);
     }
 
     public static function findByHash($hashId) 
     {
-        $id = (new Hashids())->decode($hashId)[0];
+        return static::find(
+            self::decodeHash($hashId)
+        );
+    }
 
-        return static::find($id);
+    public static function findOrFailByHash($hashId) 
+    {
+        return static::findOrFail(
+            self::decodeHash($hashId)
+        );
+    }
+
+    private static function decodeHash($hash) 
+    {
+        return (new Hashids())->decode($hash)[0];
+    }
+
+    private function encodeHash($p) 
+    {
+        return (new Hashids())->encode($p);
     }
 }

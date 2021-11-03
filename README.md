@@ -74,4 +74,5 @@ return [
 
 ```php
 $post = Post::findByHash('vm');
+$post = Post::findOrFailByHash('vm');
 ```
