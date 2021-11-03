@@ -13,11 +13,6 @@ trait SmartHash
         $this->appends[] = 'hash_id';
     }
 
-    public function id(): int
-    {
-        return $this->getRawOriginal('id');
-    }
-
     public function hasId(): int
     {
         return $this->encodeHash($this->id);
